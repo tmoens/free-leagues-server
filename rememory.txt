@@ -1,0 +1,30 @@
+This uses a whole lot of other people's stuff and it is easy to lose track.
+
+NestJS is the framework.  It is in Typescript and Kamil seems to have thought of every single good thing one
+could think of.  So we use most of the packages he suggests and has build integration for.
+
+Log4JS - is not recommended by Nest, but used throughout. It allows you to generate logs at various levels
+(debug, info, error, etc) for whatever category you choose from wherever you want.  It is configured in
+main.ts.  The configuration file allows you to say what you want to do with logs as they are generated.
+
+The config file is log4js_config.json.
+
+TypeORM is recommended by Nest and Nest has some good guidance on how to use it - which we use. The
+most interesting feature we are using is the Tree support because we have hierarchies everywhere and
+their Tree Entities make life super easy.  We also use the TypeORM custom repository approach to
+specializing functions for each class of object.
+
+Swagger is used to generate and document our API. But is is simply so cool what NestJS has done with it.
+Nest looks at your controllers and @Body and @Query and other annotations and then it generates the swagger
+API descriptions for all of those calls.  Then swagger goes and generates API documentation and a little app
+that allows you to test it!  The only thing is that every DTO that comes in throught he API needs to be a
+first class object and you have to annotate all of attributes of each object in order for everything to work.
+Which is what is happening in all the @ApiModelProperties you find for the DTOs.
+
+Jest is used for automated testing.  And for a change - I'm actually doing it.
+
+==================
+
+@Tree('closure-table') does not seem to be perfect.
+1) it does not implement remove at all.  However, if you adjust the FKs to be cascade deletes, then remove works.
+2) the "level" value always seems to be 0.  Not sure when this is going to bite me.

@@ -1,0 +1,21 @@
+{
+  "appenders": {
+    "out": {
+      "type": "stdout"
+    },
+    "leagues": {
+      "type": "dateFile",
+      "filename": "log/leagues.log",
+      "pattern": "-yyyy-MM-dd"
+    }
+  },
+  "categories": {
+    "default": {
+      "appenders": [
+        "out",
+        "leagues"
+      ],
+      "level": "info"
+    }
+  }
+}

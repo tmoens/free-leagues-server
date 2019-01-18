@@ -1,0 +1,21 @@
+[
+  {
+    "name": "default",
+    "type": "mysql",
+    "host": "localhost",
+    "port": 3306,
+    "username": "leagues",
+    "password": "leagues",
+    "database": "leagues",
+    "synchronize": true,
+    "entities": [
+      "src/**/**.entity{.ts,.js}"
+    ],
+    "migrations": [
+      "migration/*.js"
+    ],
+    "cli": {
+      "migrationsDir": "migration"
+    }
+  }
+]
