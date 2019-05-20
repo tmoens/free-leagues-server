@@ -1,19 +1,47 @@
-import { Entity, Tree, Column, PrimaryGeneratedColumn, TreeChildren, TreeParent, TreeLevelColumn } from 'typeorm';
+import {
+  Entity,
+  Tree,
+  Column,
+  PrimaryGeneratedColumn,
+  TreeChildren,
+  TreeParent,
+  TreeLevelColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  VersionColumn,
+} from 'typeorm';
+import { Exclude } from 'class-transformer';
 
 /*
-    A GroupSchema is a schema of groupings that can be used to set up a league.
-    For example, one could create a schema for the NHL which would have a "League"
-    at the top level with "Conference" level within it and "Division" level within
-    the "Conferences" level.
+    Leagues are often organized into levels and at each level there are groupings
+    of teams or groupings of groupings.  For example, the NHL has a League which
+    is a grouping of Conferences which is a grouping of divisions which in turn
+    are a grouping of teams.  SurDel girls soccer have many leagues, each has
+    a single grouping of teams.
 
-    The schema doe not represent any one hierarcy of groupings in particular.
+    GroupingSchemas are used to model these hierarchies along with the terminology
+    specific to the League.  A GroupSchema for an NHL Conference would have a
+    generic group name of "conference", It's parent group schema would be a
+    "league" and its child would be a "division".
+
+    The NHL League itself would have two groups governed by the "conference"
+    GroupSchema and four groups governed by the "division" schema.
+
+    If a GroupSchema is generic enough it can be reused in many different
+    types of leagues.
  */
+
 @Entity()
 @Tree('closure-table')
 export class GroupSchema {
 
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @Column('varchar', {
+    nullable: false,
+  })
+  name: string;
 
   @Column('varchar', {
     comment: 'This is the generic name of the grouping: e.g. league or conference or division',
@@ -28,7 +56,7 @@ export class GroupSchema {
 
   @Column('varchar', {
     nullable: true,
-    comment: 'Some well known examples of where this group schema is in use.',
+    comment: 'Some examples of where this group schema is in use.',
   })
   examples: string;
 
@@ -43,6 +71,13 @@ export class GroupSchema {
   @TreeParent()
   parent: GroupSchema;
 
-  @TreeLevelColumn()
-  level: number;
+  @CreateDateColumn()
+  @Exclude()
+  creationDate: Date;
+
+  @UpdateDateColumn()
+  updateDate: Date;
+
+  @VersionColumn()
+  version: number;
 }

@@ -1,34 +1,35 @@
 import {
   Entity, Tree, Column, PrimaryGeneratedColumn,
-  TreeChildren, TreeParent, TreeLevelColumn, CreateDateColumn, UpdateDateColumn, VersionColumn,
+  TreeChildren, TreeParent,
+  CreateDateColumn, UpdateDateColumn, VersionColumn,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
 /*
-    An "Organization" is just some entity that we contract with to provide
-    leagues services.
+    An "Organization" is just some entity that we support to provide
+    tournament/leagues services.
 
     This is done to limit the visibility of different groups to different
-    items in the database.  So the New Orleans Minor Lacrosse League will
-    not even know about the Frankfurt Over 60 Badminton League.  Nor, for that
-    matter will the administrators of one be able to make changes in the
+    items in the database.  So the "New Orleans Minor Lacrosse League" will
+    not even know about the "Frankfurt Over 60 Badminton League".  Nor, for
+    that matter will the administrators of one be able to make changes in the
     other's leagues.
 
     Organizations can be hierarchical with higher levels having visibility
-    of the lower. Supports things like PDGA ->
-    PDGA Canada -> BCDS -> Langley Disc Golf Club type of hierarchies.
+    of the lower. Supports things like PDGA -> PDGA Canada -> BCDS -> Langley
+    Disc Golf Club type of hierarchies.
 
-    Lower levels may have access to som resources provided by their parents.
+    Lower levels may have access to some resources provided by their parents.
     for example, the Pacific Northwest Tennis Association should be able to
-    see the GroupSchemas set up by the USTA.
+    see the schemas set up by the USTA.
 
     Also I need to work out sharing resources laterally between organizations
     within an organization as well as between organizations outside of an
     organization.
 
     But that is all for another day.  As long as we associate an organization
-    with things like a GroupSchema or a Group (League), we will be able to do
-    some significant work with end user visibility of data.
+    with things like a League, we will be able to do some significant work
+    with end user visibility of data.
 
     Notes: The @Exclude decorations are used to tell the class-transformer
     to ignore fields when transforming the class to a simple object to send
@@ -59,11 +60,11 @@ export class Org {
   // TODO per organization customizable data fields.
 
   @CreateDateColumn()
-  @Exclude()
   creationDate: Date;
+
   @UpdateDateColumn()
-  @Exclude()
   updateDate: Date;
+
   @VersionColumn()
   @Exclude()
   version: number;
@@ -73,9 +74,4 @@ export class Org {
 
   @TreeParent()
   parent: Org;
-
-  @TreeLevelColumn()
-  @Exclude()
-  level: number;
-
 }

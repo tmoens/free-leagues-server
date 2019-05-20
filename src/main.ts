@@ -8,7 +8,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
 
-
   /**
    * make a several directory, just in case it is a fresh install.
    */

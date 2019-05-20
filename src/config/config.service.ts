@@ -83,7 +83,7 @@ export class ConfigService implements TypeOrmOptionsFactory {
           `${SOURCE_PATH}/**/*.entity{.ts,.js}`,
         ],
         synchronize: false,
-        logging: ['error'],
+        logging: ['error', 'query'],
       };
 
     }

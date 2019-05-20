@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post, } from '@nestjs/common';
 import {GroupService} from './group.service';
 import {Group} from './group.entity';
-import { GroupSchemaDTO, GroupRepository } from './group.repository';
+import { GroupDTO, GroupRepository } from './group.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 
 @Controller('GroupSchema')
@@ -29,7 +29,7 @@ export class GroupController {
   }
 
   @Post()
-  async create(@Body() gs: GroupSchemaDTO): Promise<Group> {
+  async create(@Body() gs: GroupDTO): Promise<Group> {
     return await this.repo.createAndSave(gs);
   }
 

@@ -1,21 +1,18 @@
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
 
-export class OrgDTO {
-  @ApiModelPropertyOptional({
+export class ExternalOrgDTO {
+  @ApiModelProperty({
     maxLength: 36,
     minLength: 36,
   })
   id: string | null;
-
-  @ApiModelPropertyOptional({
-    maxLength: 36,
-    minLength: 36,
-  })
-  parentId: string | null;
 
   @ApiModelProperty()
   name: string;
 
   @ApiModelPropertyOptional()
   nameShort?: string;
+
+  @ApiModelPropertyOptional()
+  url?: string;
 }

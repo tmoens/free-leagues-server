@@ -1,0 +1,13 @@
+Error Handling
+
+Really should .catch wherever possible.  If bad data from the client could cause an SQL error,
+you really should write a validator or at least .catch the error on save.  When you do, you
+should throw a bad request and fill in the message with something useful that can be shown in
+the GUI.
+
+Data Visibility - embryonic
+
+For now, anything that needs it should have an "owner" field that points to an organization.
+Then I have a vague idea that a user belongs to an organization and can see anything that
+is owned or shared to the user's organization.  If the user adds some object it belongs to
+the user's organization.

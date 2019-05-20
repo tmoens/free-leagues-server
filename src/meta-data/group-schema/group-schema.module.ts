@@ -16,7 +16,7 @@ import {GroupSchemaRepository} from './group-schema.repository';
     GroupSchemaController,
   ],
   exports: [
-    GroupSchemaService,
+    GroupSchemaModule,
   ],
 })
 export class GroupSchemaModule {}

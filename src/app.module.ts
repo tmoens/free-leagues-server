@@ -25,25 +25,53 @@ import { TeamPlayerService } from './core/team/team-player/team-player.service';
 import { TeamPlayerController } from './core/team/team-player/team-player.controller';
 import { TeamPlayerModule } from './core/team/team-player/team-player.module';
 import { CompoPlayerModule } from './core/compo/compo-player/compo-player.module';
+import { ExternalOrgModule } from './core/external-data/external-org/external-org.module';
+import { ExternalIdentityModule } from './core/external-data/external-identity/external-identity.module';
+import { SportController } from './core/sport/sport.controller';
+import { SportModule } from './core/sport/sport.module';
+import { TermModule } from './meta-data/terminology/term/term.module';
+import { TermController } from './meta-data/terminology/term/term.controller';
+import { VocabularyController } from './meta-data/terminology/vocabulary/vocabulary.controller';
+import { VocabularyModule } from './meta-data/terminology/vocabulary/vocabulary.module';
 
 @Module({
   imports: [
+    TypeOrmModule.forRoot(),
+    CompoModule,
+    CompoSchemaModule,
     ConfigModule,
     GroupSchemaModule,
-    TypeOrmModule.forRoot(),
-    ScoreSchemaModule,
-    CompoSchemaModule,
-    ScoreModule,
-    CompoModule,
     OrgModule,
     PersonModule,
-    TeamModule,
-    TeamIncarnationModule,
-    TeamPlayerModule,
     CompoPlayerModule,
+    ExternalOrgModule,
+    ExternalIdentityModule,
+    ScoreModule,
+    ScoreSchemaModule,
+    SportModule,
+    TeamIncarnationModule,
+    TeamModule,
+    TeamPlayerModule,
+    TermModule,
+    VocabularyModule,
   ],
-  controllers: [AppController, CompoSchemaController, CompoController, PersonController, TeamIncarnationController, TeamPlayerController],
-  providers: [AppService, CompoSchemaService, ScoreService, OrgService, PersonService, TeamIncarnationService, TeamPlayerService],
-
+  controllers: [
+    AppController,
+    CompoSchemaController,
+    CompoController,
+    PersonController,
+    TeamIncarnationController,
+    TeamPlayerController,
+    SportController,
+    TermController,
+    VocabularyController,
+  ],
+  providers: [AppService,
+    CompoSchemaService,
+    ScoreService,
+    OrgService,
+    PersonService,
+    TeamIncarnationService,
+    TeamPlayerService],
 })
 export class AppModule {}

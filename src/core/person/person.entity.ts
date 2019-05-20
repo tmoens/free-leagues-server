@@ -1,8 +1,6 @@
-import { Entity, Tree, Column, PrimaryGeneratedColumn,
-  TreeChildren, TreeParent, TreeLevelColumn,
-  ManyToOne, JoinColumn } from 'typeorm';
-import { ScoreSchema } from '../../meta-data/score-schema/score-schema.entity';
-import { Org } from '../org/org.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, CreateDateColumn, UpdateDateColumn, VersionColumn } from 'typeorm';
+import { ExternalIdentity } from '../external-data/external-identity/external-identity.entity';
+import { Exclude } from 'class-transformer';
 
 /*
    Just an individual.  The most obvious thing is a person who plays
@@ -44,8 +42,21 @@ export class Person {
   @Column('datetime')
   dob: Date;
 
-  @Column()
-  address: string;
+  @OneToMany(type => ExternalIdentity, externalIdentity => externalIdentity.person, {
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+  })
+  externalIdentities: ExternalIdentity[];
 
-  // TODO List of organizations and org specific data including org specific id
+  @CreateDateColumn()
+  @Exclude()
+  creationDate: Date;
+
+  @UpdateDateColumn()
+  @Exclude()
+  updateDate: Date;
+
+  @VersionColumn()
+  @Exclude()
+  version: number;
 }

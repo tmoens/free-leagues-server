@@ -1,7 +1,7 @@
 import { GroupSchemaController } from './group-schema.controller';
 import { GroupSchemaService } from './group-schema.service';
 import { GroupSchema } from './group-schema.entity';
-import { GroupSchemaRepository, GSDTO } from './group-schema.repository';
+import { GroupSchemaRepository, GroupSchemaDTO } from './group-schema.repository';
 import { Test } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
 

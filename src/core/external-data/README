@@ -1,0 +1,12 @@
+This directory is for information we are tracking from external systems.
+
+In particular people might use an identifier from an external system belonging to an
+external organization.  For example, I might identify myself to the system as 89924
+from the PDGA but I may also identify myself as player 1799802 in Tennis Canada's
+database.  I might also be a certain person in Google, FaceBook or whatever else.
+
+So one player can have many external identities which might be used by various leagues.
+
+The key objects are "External Organization" and a map from an identifier in a particular
+external organization to a person in FreeLeagues.
+

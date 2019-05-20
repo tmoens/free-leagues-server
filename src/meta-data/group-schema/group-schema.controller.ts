@@ -1,8 +1,9 @@
 import { Body, Controller, Delete, Get, Post, Query } from '@nestjs/common';
-import {GroupSchemaService} from './group-schema.service';
-import {GroupSchema} from './group-schema.entity';
-import { GSDTO, GroupSchemaRepository, PartialNameQueryParams } from './group-schema.repository';
 import { InjectRepository } from '@nestjs/typeorm';
+import {GroupSchema} from './group-schema.entity';
+import { GroupSchemaRepository } from './group-schema.repository';
+import {GroupSchemaService} from './group-schema.service';
+import { GroupSchemaDTO, PartialNameQueryParams } from './group-schema.dto';
 
 @Controller('GroupSchema')
 export class GroupSchemaController {
@@ -25,18 +26,13 @@ export class GroupSchemaController {
     return await this.repo.findByName(query.partialName);
   }
 
-
   @Get('/findTrees')
-  // temporary thing to have a look at what is in the database and learn the TreeRepository API
   async findTrees(): Promise<any> {
-    const resp: any = {};
-    resp.findTrees =  await this.repo.findTrees();
-    resp.findRoots = await this.repo.findRoots();
-    return resp;
+    return await this.repo.findTrees();
   }
 
   @Post()
-  async create(@Body() gs: GSDTO): Promise<GroupSchema> {
+  async create(@Body() gs: GroupSchemaDTO): Promise<GroupSchema> {
     return await this.repo.createAndSave(gs);
   }
 }
