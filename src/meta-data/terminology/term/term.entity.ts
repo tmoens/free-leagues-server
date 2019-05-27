@@ -15,12 +15,12 @@ import { Entity, Column, PrimaryColumn } from 'typeorm';
     in the user interface, the contextually correct term is used.
 
     Note that the description for a term is itself going to be used in the user
-    interfac and thus, where the description of one term refers to another term,
-    the description itself must use the _termid_ notation.
+    interface and thus, where the description of one term refers to another term,
+    the description itself must use the __termId__ notation.
 
     There is a "vocabulary" table that says which terms can be overridden in
     which contexts.  For example that the __compo_name__ term can be overridden
-    at the sport level ("match" for Tennis and "game" for baseball) and further
+    at the sport level ("match" for tennis and "game" for baseball) and further
     overridden at the league level (e.g. "tie" for the Davis Cup).
 
     This all allows a nice data-driven user interface that can be used to

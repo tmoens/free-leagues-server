@@ -25,9 +25,7 @@ export class ScoreSchemaRepository extends TreeRepository<ScoreSchema> {
     }
     ss.description = dto.description;
     return await this.save(ss);
-
   }
-
 }
 
 export class SSDTO {

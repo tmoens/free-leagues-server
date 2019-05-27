@@ -2,7 +2,6 @@ import { Entity, Tree, Column, PrimaryGeneratedColumn,
   TreeChildren, TreeParent, TreeLevelColumn,
   ManyToOne, JoinColumn } from 'typeorm';
 import { ScoreSchema } from '../../meta-data/score-schema/score-schema.entity';
-import { Org } from '../org/org.entity';
 
 /*
    For now, I am going to model a score as a tree only having values at the leaves
@@ -23,6 +22,7 @@ import { Org } from '../org/org.entity';
    Same in NHL hockey where the score may be 4-3 but there may be a tiebreaker
    (overtime or shootout) as well.
  */
+
 @Entity()
 @Tree('closure-table')
 export class Score {

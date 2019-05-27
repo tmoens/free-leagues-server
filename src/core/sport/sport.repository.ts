@@ -40,6 +40,7 @@ export class SportRepository extends Repository<Sport> {
     return await this.saveOrFail(o);
   }
 
+  // TODO Should this not be class to plain?
   async findByName(name: string): Promise<Sport> {
     return await this.findOne({ where: {name}});
   }
@@ -48,7 +49,7 @@ export class SportRepository extends Repository<Sport> {
     let candidate: Sport;
     if (forCreation) {
       if (dto.id) {
-        throw new BadRequestException('Bad Request', 'Cannot *create* an object with a id');
+        throw new BadRequestException('Bad Request', 'Cannot specify and id when creating a sport');
       } else {
         candidate = new Sport();
       }

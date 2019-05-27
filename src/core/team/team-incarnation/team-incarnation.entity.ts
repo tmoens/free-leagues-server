@@ -1,12 +1,26 @@
-import { Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
-import { Group } from '../../group/group.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
+  OneToMany,
+  Index,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  VersionColumn,
+} from 'typeorm';
 import { Team } from '../team.entity';
 import { Person } from '../../person/person.entity';
 import { TeamPlayer } from '../team-player/team-player.entity';
+import { Exclude } from 'class-transformer';
 
 /*
-   A teamIncarnation is an incarnation of a particular team in a particular
-   group (i.e. league/conference/division/pool, etc.).
+   A teamIncarnation is an incarnation of a team.  Like the "2020/2021 Hammers"
+   or the "2019 Summer Dark Side Of The Disc".
+
+   Rosters for a particular tournament or match or league can be drawn from
+   a team incarnation.
 
    Teams can exist year over year in the same league, so we keep static
    stuff about the team in the "team" entity and the details of this
@@ -18,14 +32,12 @@ export class TeamIncarnation {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  // What league/conference/division/pool are you in this time?
-  // TODO Vancouver Traffic with a fixed roster played in two pools at most tournaments.
-  @ManyToOne(type => Group, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
+  // What distinguishes this incarnation from any other incarnation
+  @Index({ unique: true })
+  @Column({
+    nullable: false,
   })
-  @JoinColumn({name: 'groupId'})
-  groupId: Group;
+  incarnationName: string;
 
   @ManyToOne(type => Team, {
     onDelete: 'CASCADE',
@@ -39,4 +51,16 @@ export class TeamIncarnation {
     onUpdate: 'CASCADE',
   })
   roster: Person[];
+
+  @CreateDateColumn()
+  @Exclude()
+  creationDate: Date;
+
+  @UpdateDateColumn()
+  @Exclude()
+  updateDate: Date;
+
+  @VersionColumn()
+  @Exclude()
+  version: number;
 }

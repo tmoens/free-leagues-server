@@ -20,7 +20,7 @@ import { CompoSchemaModule } from '../../meta-data/compo-schema/compo-schema.mod
     SportController,
   ],
   exports: [
-    SportModule,
+    SportService,
   ],
 })
 export class SportModule {}

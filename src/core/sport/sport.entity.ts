@@ -41,7 +41,7 @@ export class Sport {
   })
   governingBody: ExternalOrg;
 
-  @Column('json', {
+  @Column('simple-json', {
     nullable: true,
     default: '{}',
   })

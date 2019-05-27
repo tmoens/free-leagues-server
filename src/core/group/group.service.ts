@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import {InjectRepository} from '@nestjs/typeorm';
-import {GroupSchema} from './group-schema.entity';
 import {getLogger} from 'log4js';
-import { GroupRepository } from './group-schema.repository';
+import { GroupRepository } from './group.repository';
+import { Group } from './group.entity';
 
 const logger = getLogger('groupSchema');
 
@@ -13,7 +13,7 @@ export class GroupService {
     private readonly repo: GroupRepository,
   ) {}
 
-  async findAll(): Promise<GroupSchema[]> {
+  async findAll(): Promise<Group[]> {
     return await this.repo.find();
   }
 }

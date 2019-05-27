@@ -16,7 +16,7 @@ import { OrgService } from './org.service';
     OrgController,
   ],
   exports: [
-    OrgService,
+    OrgModule,
   ],
 })
 export class OrgModule {}

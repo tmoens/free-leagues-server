@@ -1,7 +1,7 @@
 import {
   Entity, Tree, Column, PrimaryGeneratedColumn,
   TreeChildren, TreeParent,
-  CreateDateColumn, UpdateDateColumn, VersionColumn,
+  CreateDateColumn, UpdateDateColumn, VersionColumn, TreeLevelColumn,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
@@ -35,6 +35,7 @@ import { Exclude } from 'class-transformer';
     to ignore fields when transforming the class to a simple object to send
     to the client.
  */
+
 @Entity()
 @Tree('closure-table')
 export class Org {
@@ -51,6 +52,8 @@ export class Org {
   })
   nameShort: string;
 
+  // TODO Relationship to sport
+
   // TODO lots of other fields like contacts, website, and so on.
 
   // TODO state of the affiliation with FreeLeagues
@@ -59,19 +62,21 @@ export class Org {
 
   // TODO per organization customizable data fields.
 
-  @CreateDateColumn()
-  creationDate: Date;
-
-  @UpdateDateColumn()
-  updateDate: Date;
-
-  @VersionColumn()
-  @Exclude()
-  version: number;
-
   @TreeChildren()
   children: Org[];
 
   @TreeParent()
   parent: Org;
+
+  @CreateDateColumn({type: 'datetime', width: 6})
+  @Exclude()
+  creationDate: Date;
+
+  @UpdateDateColumn({type: 'datetime', width: 6})
+  @Exclude()
+  updateDate: Date;
+
+  @VersionColumn()
+  @Exclude()
+  version: number;
 }

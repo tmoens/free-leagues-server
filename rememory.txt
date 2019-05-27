@@ -17,14 +17,14 @@ specializing functions for each class of object.
 Swagger is used to generate and document our API. But is is simply so cool what NestJS has done with it.
 Nest looks at your controllers and @Body and @Query and other annotations and then it generates the swagger
 API descriptions for all of those calls.  Then swagger goes and generates API documentation and a little app
-that allows you to test it!  The only thing is that every DTO that comes in throught he API needs to be a
+that allows you to test it!  The only thing is that every DTO that comes in through the API needs to be a
 first class object and you have to annotate all of attributes of each object in order for everything to work.
 Which is what is happening in all the @ApiModelProperties you find for the DTOs.
 
-Jest is used for automated testing.  And for a change - I'm actually doing it.
+Jest is used for automated testing.  And I'm failing again.
 
 ==================
 
-@Tree('closure-table') does not seem to be perfect.
+@Tree('closure-table') of TypeORM does not seem to be perfect.
 1) it does not implement remove at all.  However, if you adjust the FKs to be cascade deletes, then remove works.
 2) the "level" value always seems to be 0.  Not sure when this is going to bite me.

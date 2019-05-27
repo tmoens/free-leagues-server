@@ -5,7 +5,6 @@ import {
   PrimaryGeneratedColumn,
   TreeChildren,
   TreeParent,
-  TreeLevelColumn,
   CreateDateColumn,
   UpdateDateColumn,
   VersionColumn,
@@ -76,8 +75,10 @@ export class GroupSchema {
   creationDate: Date;
 
   @UpdateDateColumn()
+  @Exclude()
   updateDate: Date;
 
   @VersionColumn()
+  @Exclude()
   version: number;
 }

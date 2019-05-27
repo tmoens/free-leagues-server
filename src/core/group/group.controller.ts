@@ -1,10 +1,11 @@
-import { Body, Controller, Get, Post, } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
 import {GroupService} from './group.service';
 import {Group} from './group.entity';
-import { GroupDTO, GroupRepository } from './group.repository';
+import { GroupRepository } from './group.repository';
 import { InjectRepository } from '@nestjs/typeorm';
+import { GroupDTO } from './group.dto';
 
-@Controller('GroupSchema')
+@Controller('Group')
 export class GroupController {
   constructor(
     @InjectRepository(GroupRepository)
@@ -13,24 +14,31 @@ export class GroupController {
   ) {
   }
 
+  // Get all the tournaments and leagues
   @Get()
+  async findTrees(): Promise<any> {
+    return await this.repo.findTrees();
+  }
+
+  @Get('/all')
   // @UseGuards(AuthGuard('bearer'))
   async findAll(): Promise<Group[]> {
     return await this.service.findAll();
   }
 
-  @Get('findTrees')
-  // temporary thing to have a look at what is in the database and learn the TreeRepository API
-  async findTrees(): Promise<any> {
-    const resp: any = {};
-    resp.findTrees =  await this.repo.findTrees();
-    resp.findRoots = await this.repo.findRoots();
-    return resp;
+  @Post()
+  async create(@Body() gs: GroupDTO): Promise<any> {
+    return await this.repo.createGroup(gs);
   }
 
-  @Post()
-  async create(@Body() gs: GroupDTO): Promise<Group> {
-    return await this.repo.createAndSave(gs);
+  @Put()
+  async update(@Body() dto: GroupDTO): Promise<any> {
+    return await this.repo.updateGroup(dto);
   }
+  //
+  // @Delete()
+  // async remove(@Body() dto: OrgDTO): Promise<any> {
+  //   return this.repo.validateAndRemove(dto);
+  // }
 
 }

@@ -17,7 +17,7 @@ export class OrgRepository extends TreeRepository<Org> {
 
   async createAndSave(dto: OrgDTO): Promise<any> {
     if (dto.id) {
-      throw new BadRequestException('Bad Request', 'Cannot create an Organization with an existing id');
+      throw new BadRequestException('Bad Request', 'Cannot specify the id for a new Organization.');
     }
     let item: Org = super.create(dto);
     // If the new item has a parent specified, that parent has to exist!

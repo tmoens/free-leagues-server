@@ -1,4 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, CreateDateColumn, UpdateDateColumn, VersionColumn } from 'typeorm';
+import {
+  Entity, Column, PrimaryGeneratedColumn,
+  OneToMany, CreateDateColumn, UpdateDateColumn, VersionColumn, Index, Generated,
+} from 'typeorm';
 import { ExternalIdentity } from '../external-data/external-identity/external-identity.entity';
 import { Exclude } from 'class-transformer';
 
@@ -9,9 +12,9 @@ import { Exclude } from 'class-transformer';
    But we can also imagine a person who is an administrator or a
    referee or a volunteer who is a member of some organization.
 
-   We imaginge it is possible to have a person who belongs to multiple
+   We imagine it is possible to have a person who belongs to multiple
    organizations, and this is going to be a nightmare which we are not
-   going to solve right this minute.
+   going to solve right this minute.  See external-org.
 
    We also need to allow for all kinds of mappings from identifiers outside
    of our system to identifiers inside our system.
@@ -21,25 +24,45 @@ import { Exclude } from 'class-transformer';
 @Entity()
 export class Person {
 
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
+  numericId: number;
+
+  @Index({ unique: true })
+  @Column()
+  @Generated('uuid')
   id: string;
 
-  @Column()
+  /* the user's self-chosen identifier */
+  @Index({ unique: true })
+  @Column({
+    nullable: true,
+  })
+  selfSelectedId: string;
+
+  @Column('varchar', {
+    nullable: false,
+  })
   firstName: string;
 
-  @Column()
+  @Column('varchar', {
+    nullable: false,
+  })
   lastName: string;
 
-  @Column()
-  primaryPhone: string;
+  @Column({
+    nullable: true,
+  })
+  phone: string;
 
+  /* going to make the call that only one person gets any given e-mail */
+  /* I can imagine parent/child scenarios where this is sub-optimal. */
+  @Index({ unique: true })
   @Column()
-  secondaryPhone: string;
+  email: string;
 
-  @Column()
-  primaryEmail: string;
-
-  @Column('datetime')
+  @Column('date', {
+    nullable: true,
+  })
   dob: Date;
 
   @OneToMany(type => ExternalIdentity, externalIdentity => externalIdentity.person, {

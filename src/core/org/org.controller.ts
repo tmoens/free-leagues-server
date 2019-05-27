@@ -2,7 +2,6 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/
 import { InjectRepository } from '@nestjs/typeorm';
 import { OrgRepository } from './org.repository';
 import { Org } from './org.entity';
-import { MoveInTree, UUID } from '../utils/apiClasses';
 import { OrgDTO } from './org.dto';
 
 @Controller('org')
