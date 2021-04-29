@@ -12,8 +12,4 @@ export class GroupService {
     @InjectRepository(GroupRepository)
     private readonly repo: GroupRepository,
   ) {}
-
-  async findAll(): Promise<Group[]> {
-    return await this.repo.find();
-  }
 }
